@@ -1,36 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Formik, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup';
-import uuid from 'uuid';
+import axios from 'axios';
+import Users from './Components/Users';
+import {UserForm} from './Components/Form';
 
-// import Form from './Components/Form';
-
-const users = [
-  {id: uuid(), name: 'James', email: 'james@gmail.com', password: 1234},
-  {id: uuid(), name: 'Don', email: 'don@gmail.com', password: 1234},
-  {id: uuid(), name: 'Lincoln', email: 'lincoln@gmail.com', password: 1234}
-]
-
-const initialUserForm = {
-  name: '',
-  email: '',
-  password: ''
-}
+const usersAPI = "https://reqres.in/api/users";
 
 function App() {
-  
+  const [userList, setUserList] = useState([]);
+  const [serverError, setServerError] = useState('');
 
-
-
-
-
+  const addUser = (values, actions) => {
+    axios.post(usersAPI, {
+      name: values.name,
+      email: values.name,
+      password: values.password,
+      terms: values.terms
+    })
+      .then(res => {
+        setUserList(userList.concat(res.data));
+        actions.resetForm();
+      })
+      .catch(error => {
+        setServerError(serverError + error.message);
+      })
+  };
 
   return (
     <div className="App">
-      {/* <Form></Form> */}
+      {serverError}
+      <UserForm onSubmit={addUser}/>
+      <Users userList={userList}/>
     </div>
   );
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default App;
