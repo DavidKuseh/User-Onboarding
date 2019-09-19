@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import uuid from 'uuid';
+
+// import Form from './Components/Form';
+
+const users = [
+  {id: uuid(), name: 'James', email: 'james@gmail.com', password: 1234},
+  {id: uuid(), name: 'Don', email: 'don@gmail.com', password: 1234},
+  {id: uuid(), name: 'Lincoln', email: 'lincoln@gmail.com', password: 1234}
+]
+
+const initialUserForm = {
+  name: '',
+  email: '',
+  password: ''
+}
 
 function App() {
+  
+
+
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Form></Form> */}
     </div>
   );
 }
