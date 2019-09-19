@@ -6,14 +6,14 @@ const validationSchema = yup.object().shape({
     name: yup.string().required('Provide a name'),
     email: yup.string().required('Provide an email'),
     password: yup.string().required('Provide a password'),
-    terms: yup.boolean().required('Please agree to the terms of service'),
+    terms: yup.boolean('Accept terms').required('Please agree to the terms of service'),
   });
 
   const initialUserForm = {
     name: '',
     email: '',
     password: '',
-    terms: false,
+    terms: '',
   }
 
   function UserForm( props ) {
@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
         validationSchema={validationSchema}
         initialValues={initialUserForm}
         onSubmit={props.onSubmit}
-        render={() => {
+        render={(props) => {
           return (
             <Form>
               <div>
@@ -41,11 +41,11 @@ const validationSchema = yup.object().shape({
               </div>
               <div>
               <label htmlFor='password'>Password: </label>
-                  <Field name='password' type='text' placeholder='Password' />
+                  <Field name='password' type='password' placeholder='Password' />
                   <ErrorMessage name='password' component='div' />
               </div>
               <label>
-                <Field name='terms' type='checkbox'  />
+                <Field name='terms' type='checkbox' checked={props.values.terms} />
                 <label htmlFor='terms'>Agree to Terms of Service</label>
               </label>
               <button type='submit'>Submit</button>
